@@ -1,2 +1,86 @@
-.quantum::after {
+.heading {
+  overflow: hidden;
+  /* border: 1px solid; */
+  position: relative;
+  top: 100%;
+  z-index: 2;
+  /* visibility: hidden; */
+  opacity: 0;
+  /* transition: top 1s ease; */
+}
+.heading-active {
+  top: 0px;
+  position: relative;
+  /* visibility: visible; */
+  opacity: 1;
+  transition: top 0.8s ease, opacity 1s ease;
+}
+
+.headingb {
+  margin: 0%;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-wrap: wrap;
+  overflow-wrap: break-word;
+  justify-content: center;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+.heading1 {
+  /* border: 1px solid; */
+  position: relative;
+  bottom: 78px;
+  opacity: 0;
+}
+.heading1-active {
+  opacity: 1;
+  bottom: 0px;
+  position: relative;
+  transition: bottom 0.8s ease, opacity 1s ease;
+}
+
+.section3 {
+  opacity: 0;
+}
+.section3-active {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.section4-active {
+  /* border: 1px solid; */
+  position: relative;
+  bottom: 0px;
+  opacity: 1;
+  transition: bottom 1s ease, opacity 1s ease;
+}
+.section4 {
+  border: 1px solid;
+  position: relative;
+  bottom: 78px;
+  opacity: 0;
+}
+
+.blue {
+  width: 0% !important;
+  /* display: none !important; */
+  opacity: 0;
+}
+.blue-active {
+  width: 100% !important;
+  opacity: 1;
+  /* display: grid; */
+  transition: width 1s ease, opacity 1s ease;
+}
+
+@keyframes headin {
+  from {
+    top: 100%;
+    /* visibility: hidden; */
+  }
+  to {
+    top: 0px;
+    /* visibility: visible; */
+  }
 }

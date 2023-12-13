@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import img1 from '../../assets/images/1.png'
 import img2 from '../../assets/images/2.png'
 import img3 from '../../assets/images/3.png'
@@ -15,32 +15,84 @@ import img13 from '../../assets/images/13.png'
 import img14 from '../../assets/images/14.png'
 import img15 from '../../assets/images/15.png'
 import img16 from '../../assets/images/16.png'
-import img12 from '../../assets/images/12.png'
+import img12 from '../../assets/images/12.png';
+import './About.css'
 
 
 
 
 
 const About = () => {
+
+    const sectionRefs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(), useRef()]; // Add refs for each section
+    const [isVisible, setIsVisible] = useState([false, false, , false, false, false, false, false]); // Initial state for each section
+
+    useEffect(() => {
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5,
+        };
+
+        const observers = sectionRefs.map((ref, index) => {
+            return new IntersectionObserver(([entry]) => {
+                if (entry.isIntersecting && !isVisible[index]) {
+                    setIsVisible((prev) => {
+                        const newState = [...prev];
+                        newState[index] = true;
+                        return newState;
+                    });
+                }
+            }, options);
+        });
+
+        sectionRefs.forEach((ref, index) => {
+            if (ref.current) {
+                observers[index].observe(ref.current);
+            }
+        });
+
+        return () => {
+            observers.forEach((observer) => {
+                observer.disconnect();
+            });
+        };
+    }, [sectionRefs, isVisible]);
+
+    // useEffect(() => console.log(isVisible), [isVisible])
+
+
     return (
         <>
             <Box
                 sx={{
                     height: 'fit-content',
+                    // height: '100vh',
                     backgroundColor: 'rgb(0, 47, 105)',
                     // position: 'relative'
                     display: 'flex',
-                    // overflowWrap: 'break-word'
+                    overflowWrap: 'break-word',
+                    boxSizing: 'border-box',
+                    width: '100%',
+                    // overflowX: 'scroll'
 
                 }}
             >
-                <div style={{ margin: '5%', width: '100%' }}>
+                <div style={{
+                    margin: '5%',
+                    width: '100%',
+                    boxSizing: 'border-box',
+
+                }}>
                     <Grid container spacing={{ md: 1 }} columns={{ md: 12, sm: 12, xs: 12 }} sx={{ height: '100%', marginBottom: '80px' }}>
-                        <Grid item xs={12} md={12} sm={12} sx={{ height: '20%' }}>
+                        <Grid item xs={12} md={12} sm={12} sx={{
+                            height: '20%'
+                        }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <img
                                     src={img7}
                                     alt=''
+                                    style={{ maxWidth: '100%', objectFit: 'cover' }}
                                 />
                                 <div style={{ color: 'white', fontSize: '1.7rem', fontWeight: '200', marginLeft: '15px', fontFamily: 'logo, sans-serif' }}>
                                     Cryo <br /> Diffusion
@@ -48,18 +100,16 @@ const About = () => {
                             </div>
 
                         </Grid>
-                        <Grid item xs={12} md={12} sm={12} sx={{ height: 'fit-content', display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
-                            <Box sx={{
-                                // border: '1px solid',
+                        <Grid item xs={12} md={12} sm={12} sx={{
+                            height: 'fit-content',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                        }}>
+                            <Box ref={sectionRefs[0]} className='headingb' sx={{
                                 width: { md: '60%', xs: '100%' },
-                                margin: '0%',
-                                display: 'flex',
-                                flexWrap: "wrap",
-                                overflowWrap: 'break-word',
-                                // textAlign: "center",
-                                justifyContent: 'center'
                             }}>
-                                <Typography className='heading' variant="h1"
+                                <Typography className={isVisible[0] ? 'heading-active' : 'heading'} variant="h1"
                                     sx={{
                                         fontSize: { md: '7rem', xs: '4rem', sm: '5rem' },
                                         fontWeight: '600',
@@ -80,7 +130,9 @@ const About = () => {
                                 </Typography>
                             </Box>
                         </Grid>
-                        <Grid item md={12} xs={12} sm={12} sx={{ height: 'fit-content ' }}>
+                        <Grid item md={12} xs={12} sm={12} sx={{
+                            height: 'fit-content ',
+                        }}>
                             <div style={{ margin: '2%', width: '100%', display: 'flex', justifyContent: "center" }}>
                                 <div style={{
                                     color: '#2D5BA1',
@@ -90,7 +142,9 @@ const About = () => {
                                     backgroundColor: 'white',
                                     width: 'fit-content',
                                     height: 'fit-content',
-                                    position: 'relative'
+                                    position: 'relative',
+
+                                    // display: 'none',
                                 }}>
                                     <Typography sx={{
                                         fontSize: { md: '3rem', sm: '3rem', xs: '1.9rem' },
@@ -121,7 +175,13 @@ const About = () => {
                                 </div>
 
                             </div>
-                            <div style={{ textAlign: 'center', color: 'white', margin: '10px 0 0 0', fontSize: '30px' }}>
+                            <div style={{
+                                textAlign: 'center',
+                                color: 'white',
+                                margin: '10px 0 0 0',
+                                fontSize: '30px',
+                                // display: 'none' 
+                            }}>
                                 Cryo Diffusion is focused on liquid helium and specialty products that complement and extend the cryogenic equipment portfolio of Quantum Technology Corporation.
                             </div>
                         </Grid>
@@ -129,6 +189,7 @@ const About = () => {
                     </Grid >
                 </div>
             </Box >
+
             <Box
                 sx={{
                     height: 'fit-content',
@@ -139,7 +200,7 @@ const About = () => {
             >
                 <Box sx={{
                     margin: { md: '5% 18% 5% 18%', sm: '5%' }, width: { md: 'fit-content', sm: 'fit-content' },
-                    //  border: '1px solid' 
+                    // border: '1px solid'
                 }}>
                     <Grid container spacing={{ md: 2, sm: 2, xs: 2 }} columns={{ md: 12, sm: 12, xs: 12 }} sx={{ height: '100%' }}>
                         <Grid item xs={12} md={12} sm={12} sx={{
@@ -155,17 +216,28 @@ const About = () => {
                                     // textAlign: "center",
                                     position: 'relative'
                                 }}>
-                                <div style={{
-                                    display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: 'flex-start',
-                                    //  border: '1px solid'
-                                }}>
-                                    <div style={{ width: '40%', height: '4px', backgroundColor: 'rgb(0, 47, 105)' }}></div>
+                                <div ref={sectionRefs[1]} className={isVisible[1] ? 'heading1-active' : 'heading1'}
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: "center",
+                                        alignItems: 'flex-start',
+                                        // border: '1px solid'
+                                    }}>
+                                    <div style={{
+                                        width: '40%',
+                                        height: '4px',
+                                        backgroundColor: 'rgb(0, 47, 105)',
+                                        // border: '1px solid'
+
+                                    }}></div>
                                     <Typography
                                         sx={{
                                             fontFamily: 'heading',
                                             fontSize: '3rem',
                                             color: 'rgb(0, 47, 105)',
-                                            fontWeight: '200'
+                                            fontWeight: '200',
+                                            // border: "1px solid"
                                         }}
                                     >
 
@@ -217,6 +289,7 @@ const About = () => {
                     </Grid>
                 </Box>
             </Box>
+
             <Box
                 sx={{
                     // height: { md: '100vh', sm: '200vh', xs: '300vh' },
@@ -229,15 +302,17 @@ const About = () => {
 
                 }}
             >
-                <div style={{
-                    margin: '5% 10% 5% 10%', width: '90%',
-                    //  border: '1px solid'
+                <div ref={sectionRefs[2]} className={isVisible[2] ? 'section3-active' : 'section3'} style={{
+                    margin: '5% 10% 5% 10%',
+                    width: '90%',
+                    //  border: '1px solid',
+                    // opacity: 0
                 }}>
                     <Grid container columns={{ md: 12, sm: 12, xs: 12 }} sx={{ height: '100%' }}>
                         <Grid item xs={12} md={12} sm={12} sx={{
                             height: 'fit-content',
-                            // border: '1px solid white',
-                            textAlign: 'center', marginBottom: '55px'
+                            // border: '1px solid ',
+                            textAlign: 'center', marginBottom: '55px',
                         }}>
                             <Typography
                                 sx={{
@@ -365,6 +440,7 @@ const About = () => {
                     </Grid>
                 </div>
             </Box>
+
             <Box
                 sx={{
                     // height: { md: '100vh', sm: '200vh', xs: '300vh' },
@@ -388,9 +464,9 @@ const About = () => {
                         marginBottom: '55px'
                     }}>
 
-                        <div style={{
+                        <div ref={sectionRefs[3]} className={isVisible[3] ? 'section4-active' : 'section4'} style={{
                             display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: 'flex-start',
-                            //  border: '1px solid'
+                            // border: '1px solid'
                         }}>
                             <div style={{ width: '30%', height: '4px', backgroundColor: 'rgb(0, 47, 105)' }}></div>
                             <Typography
@@ -535,6 +611,7 @@ const About = () => {
 
                 </div>
             </Box>
+
             <Box sx={{
                 height: { md: '90vh', sm: '150vh', xs: '200vh' },
                 backgroundColor: 'white',
@@ -542,12 +619,27 @@ const About = () => {
                 padding: { md: '5% 0 5% 0', sm: '5% 30% 5% 30%' }
             }}>
                 <Box style={{ width: '100%' }}>
-                    <Grid container columns={12} sx={{ height: '100%' }}>
-                        <Grid item md={4} sm={12} sx={{ backgroundColor: '#42B8FD', display: 'flex ', alignItems: 'center', justifyContent: "center" }}>
-                            <Typography sx={{ position: 'relative', fontSize: '3rem', fontFamily: 'heading', color: 'rgb(238,238,240)' }}>
+                    <Grid ref={sectionRefs[4]} className={isVisible[4] ? 'blue-active' : 'blue'} container columns={12} sx={{ height: '100%' }}>
+                        <Grid item md={4} sm={12}
+                            sx={{
+                                backgroundColor: '#42B8FD',
+                                display: 'flex ',
+                                alignItems: 'center',
+                                justifyContent: "center",
+                                // width: '0px'
+                            }}>
+                            <Typography
+                                sx={{
+                                    position: 'relative',
+                                    fontSize: '3rem',
+                                    fontFamily: 'heading',
+                                    color: 'rgb(238,238,240)',
+
+                                }}>
                                 54 Employees
 
                             </Typography>
+
                         </Grid>
                         <Grid item md={4} sm={12} sx={{ backgroundColor: '#EEEEF0', justifyContent: "center", display: 'flex ', alignItems: 'center' }}>
                             <Typography sx={{ position: 'relative', fontSize: '3rem', fontFamily: 'heading', color: '#002f69' }}>
@@ -568,6 +660,7 @@ const About = () => {
                 </Box>
 
             </Box >
+
             <Box sx={{
                 // height: '100%',
                 border: '1px solid',
@@ -591,9 +684,9 @@ const About = () => {
                         height: '100%'
                     }}>
                     <Grid item md={12} sm={12} xs={12} sx={{ height: { md: '5%', sm: '5%', xs: '4%' } }}>
-                        <div style={{
+                        <div ref={sectionRefs[5]} className={isVisible[5] ? "section4-active" : 'section4'} style={{
                             display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: 'flex-start',
-                            //  border: '1px solid'
+                            // border: '1px solid'
                         }}>
                             <div style={{ width: '30%', height: '4px', backgroundColor: 'white' }}></div>
                             <Typography
@@ -673,7 +766,7 @@ const About = () => {
                         </div>
                     </Grid>
                     <Grid item md={12} sm={12} xs={12} sx={{ height: { md: '5%', sm: '5%', xs: '4%' } }}>
-                        <div style={{
+                        <div ref={sectionRefs[6]} className={isVisible[6] ? "section4-active" : 'section4'} style={{
                             display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: 'flex-start',
                             //  border: '1px solid'
                         }}>
@@ -845,6 +938,7 @@ const About = () => {
                 {/* </div > */}
 
             </Box >
+
             <Box
                 sx={{
                     height: '15vh',
@@ -858,7 +952,7 @@ const About = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
-                    width: '100%',
+                    width: '80%',
                     height: '100%',
                     marginLeft: '20px',
                     // fontFamily: 'heading'
@@ -867,6 +961,9 @@ const About = () => {
                 </div>
             </Box >
 
+            <div style={{ display: 'none' }}>
+
+            </div>
 
         </>
     )
