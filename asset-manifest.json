@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/cryo/static/css/main.a22f0941.css",
+    "main.js": "/cryo/static/js/main.f89a0f6b.js",
+    "static/js/787.ee7be357.chunk.js": "/cryo/static/js/787.ee7be357.chunk.js",
+    "static/media/picoozi-cute-cat (1).gif": "/cryo/static/media/picoozi-cute-cat (1).06a8364fc5c0658e86e3.gif",
+    "static/media/6.png": "/cryo/static/media/6.e28903b8500868cc15ad.png",
+    "static/media/8.png": "/cryo/static/media/8.076663abd7383c3939af.png",
+    "static/media/5.png": "/cryo/static/media/5.2f35991616490b2d546b.png",
+    "static/media/11.png": "/cryo/static/media/11.4d1990b8398b72d2a689.png",
+    "static/media/12.png": "/cryo/static/media/12.f555073a8bd30674196b.png",
+    "static/media/3.png": "/cryo/static/media/3.9c820530c9cf07da2a95.png",
+    "static/media/10.png": "/cryo/static/media/10.be03ca7d9b27d7b0f14e.png",
+    "static/media/9.png": "/cryo/static/media/9.7c87a5a71211db4e6252.png",
+    "static/media/2.png": "/cryo/static/media/2.b2e8c61ac71ff3c9fb54.png",
+    "static/media/RethinkSans-ExtraBold.ttf": "/cryo/static/media/RethinkSans-ExtraBold.777ad62e6de1caa9a0cd.ttf",
+    "static/media/4.png": "/cryo/static/media/4.a5ee7f6ddc5c49cd46bb.png",
+    "static/media/Abel-Regular.ttf": "/cryo/static/media/Abel-Regular.3843f456cf56d275baf6.ttf",
+    "static/media/14.png": "/cryo/static/media/14.0fba90abb39b36017e1d.png",
+    "index.html": "/cryo/index.html",
+    "main.a22f0941.css.map": "/cryo/static/css/main.a22f0941.css.map",
+    "main.f89a0f6b.js.map": "/cryo/static/js/main.f89a0f6b.js.map",
+    "787.ee7be357.chunk.js.map": "/cryo/static/js/787.ee7be357.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a22f0941.css",
+    "static/js/main.f89a0f6b.js"
+  ]
+}
